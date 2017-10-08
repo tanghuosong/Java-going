@@ -1,0 +1,10 @@
+#out
+/target/
+/target/*
+/out/
+/out/*
+
+#idea
+/.idea/
+/.idea/workspace.xml
+/.idea/*
