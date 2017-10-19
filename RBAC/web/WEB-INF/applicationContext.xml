@@ -14,7 +14,7 @@
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
-        <property name="jdbcUrl" value="jdbc:mysql://106.14.156.37:3306"/>
+        <property name="jdbcUrl" value="jdbc:mysql://106.14.156.37:3306/rbac"/>
         <property name="user" value="root"/>
         <property name="password" value="root"/>
         <!-- 初始化数据库连接池时的连接数量 -->

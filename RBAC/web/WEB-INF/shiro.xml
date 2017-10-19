@@ -31,7 +31,7 @@
         <!--验证的时候，是用迭代器，所以可以认为验证的顺序就是这个 list 的顺序-->
         <property name="realms">
             <list>
-                <ref bean="otherRealm"/>
+                <!--<ref bean="otherRealm"/>-->
                 <ref bean="myRealm"/>
             </list>
         </property>
@@ -61,7 +61,7 @@
         </property>
     </bean>
     <!--自定义的第二个 realm-->
-    <bean id="otherRealm" class="com.rbac.shiro.OtherRealm"/>
+    <!--<bean id="otherRealm" class="com.rbac.shiro.OtherRealm"/>-->
 
 
     <!--rememberMeManager管理 配置-->
@@ -97,7 +97,7 @@
         <!--权限认证失败跳转的地址-->
         <property name="unauthorizedUrl" value="/user/unAuthorized"/>
         <!--需要权限拦截的路径-->
-        <property name="filterChainDefinitions" value=""> </property>
+        <property name="filterChainDefinitions" value=""/>
     </bean>
 
     <!-- 保证实现了Shiro内部lifecycle函数的bean执行 ，不明觉厉，没有深究-->

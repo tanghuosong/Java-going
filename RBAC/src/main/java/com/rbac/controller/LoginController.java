@@ -1,5 +1,6 @@
 package com.rbac.controller;
 
+import com.rbac.model.User;
 import com.rbac.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -32,6 +33,7 @@ public class LoginController {
         Map<String, Object> map = new HashMap<>();
         logger.info("开始登录");
         //构建登录 token
+
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         //设置记住我
         token.setRememberMe(true);

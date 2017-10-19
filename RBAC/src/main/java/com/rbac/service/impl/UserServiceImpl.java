@@ -1,6 +1,6 @@
 package com.rbac.service.impl;
 
-import com.rbac.dao.User1Dao;
+import com.rbac.dao.UserDao;
 import com.rbac.model.User;
 import com.rbac.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +11,18 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
+
     @Autowired
-    private User1Dao user1Dao;
+    private UserDao userDao;
 
     @Override
     public User getUserInfo(String userName) {
-        return user1Dao.getUserInfo(userName);
+        User user = userDao.findByUserName(userName);
+        return user;
     }
 
     @Override
     public List<User> getUserList() {
-        return user1Dao.getUserList();
+        return userDao.findAll();
     }
 }

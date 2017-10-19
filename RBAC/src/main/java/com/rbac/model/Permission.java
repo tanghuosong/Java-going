@@ -64,7 +64,9 @@ public class Permission implements Serializable{
         this.urlStr = urlStr;
     }
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(name = "RoleToPermission",joinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "permissionId", referencedColumnName ="id")})
     public List<Role> getRoles() {
         return roles;
     }

@@ -67,7 +67,9 @@ public class Role implements Serializable{
         this.description = description;
     }
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(name = "UserToRole",joinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "userId", referencedColumnName ="id")})
     public List<User> getUsers() {
         return users;
     }
@@ -75,7 +77,10 @@ public class Role implements Serializable{
     public void setUsers(List<User> users) {
         this.users = users;
     }
-    @ManyToMany(mappedBy = "permissions")
+
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(name = "RoleToPermission",joinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "permissionId", referencedColumnName ="id")})
     public List<Permission> getPermissions() {
         return permissions;
     }
@@ -92,4 +97,5 @@ public class Role implements Serializable{
     public void setPermissionStr(List<String> permissionStr) {
         this.permissionStr = permissionStr;
     }
+
 }

@@ -42,22 +42,35 @@ public class MyRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
 
         UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
-        //从假数据源中拿当前用户数据
-        User userDao = userService.getUserInfo(token.getUsername());
-        if (userDao==null){
-            //扔出个异常，currentUser.login(token);可以 catch 到
+
+        // 从数据库中拿到用户信息
+        User user = userService.getUserInfo(token.getUsername());
+        // 如果用户不存在，则抛出不存在异常
+        if (user==null){
             throw new UnknownAccountException("未知用户");
         }
+        if(!user.getUserName().equals(token.getPrincipal())){
+            throw new UnknownAccountException("用户名不正确");
+        }
+        if(!user.getPassword().equals(token.getCredentials())){
+            throw new IncorrectCredentialsException("密码错误");
+        }
 
+        AuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(token.getPrincipal(),token.getCredentials(),this.getName());
+
+        // 用户名存在
+//        AuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUserName(),user.getPassword().toCharArray(),
+//                ByteSource.Util.bytes(user.getSalt()),this.getName());
         //如果数据库中存在这个用户名
-        if(userDao.getUserName().equals(token.getUsername())){
+//        if(user.getUserName().equals(token.getUsername())){
+//        if(user.getUserName().equals(authenticationToken.getPrincipal())){
 
             /*
             之前的凭证对象
             //创建认证对象，传入数据库存在的对象账号和密码，内部会根据 currentUser.login(token) 的 token 进行比较
             AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(
-                    userDao.getUserName(),
-                    userDao.getUserPassword(),
+                    user.getUserName(),
+                    user.getPassword(),
                     this.getName());*/
 
              /*
@@ -65,15 +78,13 @@ public class MyRealm extends AuthorizingRealm {
             通过HashedCredentialsMatcher类中的doCredentialsMatch进行认证
             根据 token 里的值  和  构造的 authcInfo 的值进行比对.
             如果实现这个SaltedAuthenticationInfo接口的话，可以 get 到 salt，但是我觉得不好，不能把 salt 暴露出去
-             */
-            AuthenticationInfo authcInfo1 = new SimpleAuthenticationInfo(
-                    userDao.getUserName(),
-                    userDao.getPassword(),
-                    ByteSource.Util.bytes(userDao.getSalt()),
-                    this.getName());
-            return authcInfo1;
-        }
-        return null;
+
+//            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getUserName(), user.getPassword().toCharArray(),
+                ByteSource.Util.bytes(user.getSalt()),this.getName());*/
+
+            return authenticationInfo;
+//        }
+//        return null;
     }
 
 }
