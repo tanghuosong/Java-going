@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+    <!--启用spring的一些annotation -->
+    <context:annotation-config/>
+
+    <!--在 shiro 中用到了 UserService，shiro 是运行在 spring 容器中的， shiro 和 spring-mvc 级别是平行的，
+        所以 spring-mvc 的扫描不起作用，这里再扫描一次，所有的 bean 加载到 spring 容器中-->
+    <context:component-scan base-package="com.rbac.**"/>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://106.14.156.37:3306"/>
+        <property name="user" value="root"/>
+        <property name="password" value="root"/>
+        <!-- 初始化数据库连接池时的连接数量 -->
+        <property name="initialPoolSize" value="10"/>
+        <!-- 连接池在无空暇连接可用时一次性创建的新数据库连接数 -->
+        <property name="acquireIncrement" value="5"/>
+        <!-- 连接的最大空暇时间 ,超过则断开,为0时永远不断连接 -->
+        <property name="maxIdleTime" value="30"/>
+        <!-- 数据库连接池中最大的的数据库连接数 -->
+        <property name="maxPoolSize" value="50"/>
+        <!-- 数据库连接池中最小的的数据库连接数 -->
+        <property name="minPoolSize" value="10"/>
+    </bean>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="packagesToScan" value="com.rbac.model"/>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+                <prop key="hibernate.hbm2ddl.auto"></prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MariaDB53Dialect</prop>
+
+                <!--<prop key="hibernate.cache.use_second_level_cache">true</prop>-->
+                <!--<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>-->
+                <!--<prop key="hibernate.cache.use_query_cache">true</prop>-->
+            </props>
+        </property>
+    </bean>
+
+    <!-- 配置事务 -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+    <!-- 配置支持基于注解的事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- 配置SpringData部分 -->
+    <jpa:repositories base-package="com.rbac" entity-manager-factory-ref="entityManagerFactory"/>
+    <!--导入 shiro 配置-->
+    <import resource="shiro.xml"/>
+
+
+</beans>

@@ -1,0 +1,25 @@
+# Package Files #
+# *.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+
+#out
+/target/
+/target/*
+/out/
+/out/*
+
+#idea
+/.idea/
+/.idea/workspace.xml
+/.idea/*
+
+#db
+#/web/WEB-INF/db.properties
+
+#iml
+/web/RedWms.iml
