@@ -40,9 +40,9 @@
             <!--所有 realm 认证通过才算登录成功-->
             <!--<bean id="authenticationStrategy" class="org.apache.shiro.authc.pam.AllSuccessfulStrategy"/>-->
             <!--验证某个 realm 成功后直接返回，不会验证后面的 realm 了-->
-            <!--<bean id="authenticationStrategy" class="org.apache.shiro.authc.pam.FirstSuccessfulStrategy"/>-->
+            <bean id="authenticationStrategy" class="org.apache.shiro.authc.pam.FirstSuccessfulStrategy"/>
             <!--所有的 realm 都会验证，其中一个成功，也会继续验证后面的 realm，最后返回成功-->
-            <bean id="authenticationStrategy" class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"/>
+            <!--<bean id="authenticationStrategy" class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"/>-->
         </property>
     </bean>
 

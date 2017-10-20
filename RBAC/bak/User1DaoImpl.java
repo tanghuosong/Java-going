@@ -77,8 +77,8 @@ public class User1DaoImpl implements User1Dao {
         int hashIterations=1024;
 
         /*
-        shiro.xml 中  storedCredentialsHexEncoded=true 则需要 .toHex()
-        shiro.xml 中  storedCredentialsHexEncoded=false 则需要 .toBase64()
+        application-shiro.xml 中  storedCredentialsHexEncoded=true 则需要 .toHex()
+        application-shiro.xml 中  storedCredentialsHexEncoded=false 则需要 .toBase64()
          */
         String encodedPassword = new Sha256Hash(password, salt, hashIterations).toBase64();
         /*

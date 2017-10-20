@@ -8,8 +8,6 @@ import java.util.List;
 @Table(name = "User")
 public class User implements Serializable{
 
-    public User() {}
-
     private Long id;
 
     private String userName;
@@ -20,6 +18,8 @@ public class User implements Serializable{
 
     private List<String> roleList;
     private List<String> permissionList;
+
+    public User() {}
 
     public User(Long id, String userName, List<Role> roles,  String password, String salt) {
         this.id = id;
@@ -39,7 +39,7 @@ public class User implements Serializable{
     }
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinTable(name = "UserToRole",joinColumns = {@JoinColumn(name = "userId", referencedColumnName = "id")},
+    @JoinTable(name = "user_role",joinColumns = {@JoinColumn(name = "userId", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "roleId", referencedColumnName ="id")})
     public List<Role> getRoles() {
         return roles;

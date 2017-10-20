@@ -1,7 +1,7 @@
 package com.rbac.controller;
 
-import com.rbac.model.User;
 import com.rbac.service.UserService;
+import com.rbac.utils.Encrypt;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -34,7 +34,7 @@ public class LoginController {
         logger.info("开始登录");
         //构建登录 token
 
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        UsernamePasswordToken token = new UsernamePasswordToken(username, Encrypt.createSalt(password));
         //设置记住我
         token.setRememberMe(true);
         //获取当前登录用户

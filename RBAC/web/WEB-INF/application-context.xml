@@ -60,7 +60,7 @@
     <!-- 配置SpringData部分 -->
     <jpa:repositories base-package="com.rbac" entity-manager-factory-ref="entityManagerFactory"/>
     <!--导入 shiro 配置-->
-    <import resource="shiro.xml"/>
+    <import resource="application-shiro.xml"/>
 
 
 </beans>

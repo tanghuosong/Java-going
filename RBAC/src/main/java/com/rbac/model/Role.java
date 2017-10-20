@@ -68,7 +68,7 @@ public class Role implements Serializable{
     }
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinTable(name = "UserToRole",joinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "id")},
+    @JoinTable(name = "user_role",joinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "userId", referencedColumnName ="id")})
     public List<User> getUsers() {
         return users;
@@ -79,7 +79,7 @@ public class Role implements Serializable{
     }
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinTable(name = "RoleToPermission",joinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "id")},
+    @JoinTable(name = "role_permission",joinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "permissionId", referencedColumnName ="id")})
     public List<Permission> getPermissions() {
         return permissions;

@@ -6,7 +6,7 @@
     <!--配置 spring 容器-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/applicationContext.xml</param-value>
+        <param-value>/WEB-INF/application-context.xml</param-value>
     </context-param>
     <!--配置 spring 容器监听器-->
     <listener>
