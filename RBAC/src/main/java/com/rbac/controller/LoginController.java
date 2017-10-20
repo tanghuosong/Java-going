@@ -34,7 +34,7 @@ public class LoginController {
         logger.info("开始登录");
         //构建登录 token
 
-        UsernamePasswordToken token = new UsernamePasswordToken(username, Encrypt.createSalt(password));
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         //设置记住我
         token.setRememberMe(true);
         //获取当前登录用户
@@ -51,7 +51,7 @@ public class LoginController {
         } catch (UnknownAccountException uae) {
             map.put("msg", "未知用户");
         } catch (IncorrectCredentialsException ice) {
-            map.put("msg", "认证失败");
+            map.put("msg", "密码错误");
         } catch (LockedAccountException lae) {
             map.put("msg", "账户已锁定");
         } catch (ExcessiveAttemptsException eae) {

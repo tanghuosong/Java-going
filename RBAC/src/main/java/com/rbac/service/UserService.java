@@ -10,14 +10,14 @@ import java.util.List;
 public interface UserService {
     /**
      * 获取用户信息
-     * @param userName
-     * @return
+     * @param userName 用户名
+     * @return user
      */
     User getUserInfo(String userName);
 
     /**
      * 获取用户列表
-     * @return
+     * @return list
      */
     List<User> getUserList();
 }

@@ -1,6 +1,5 @@
 package com.rbac.dao.impl;
 
-import com.rbac.dao.User1Dao;
 import com.rbac.model.User;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Sha256Hash;
