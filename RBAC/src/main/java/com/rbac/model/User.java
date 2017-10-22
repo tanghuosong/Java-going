@@ -1,5 +1,7 @@
 package com.rbac.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -12,12 +14,8 @@ public class User implements Serializable{
 
     private String userName;
     private List<Role> roles;
-//    private List<Permission> permissions;
     private String password;
     private String salt;
-
-    private List<String> roleList;
-    private List<String> permissionList;
 
     public User() {}
 
@@ -49,6 +47,7 @@ public class User implements Serializable{
         this.roles = roles;
     }
 
+    @JsonIgnore
     public String getSalt() {
         return salt;
     }
@@ -65,33 +64,13 @@ public class User implements Serializable{
         this.userName = userName;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Transient
-    public List<String> getRoleList() {
-        return roleList;
-    }
-
-    public void setRoleList(List<String> roleList) {
-        for(Role role : roles){
-
-        }
-        this.roleList = roleList;
-    }
-
-    @Transient
-    public List<String> getPermissionList() {
-        return permissionList;
-    }
-
-    public void setPermissionList(List<String> permissionList) {
-        this.permissionList = permissionList;
     }
 
 }

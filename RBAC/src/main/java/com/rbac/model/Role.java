@@ -19,9 +19,7 @@ public class Role implements Serializable{
     private String roleName;
     private Integer code;
     private String description;
-    private List<User> users;
     private List<Permission> permissions;
-    private List<String> permissionStr;
 
     public Role() {
     }
@@ -67,18 +65,7 @@ public class Role implements Serializable{
         this.description = description;
     }
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinTable(name = "user_role",joinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "userId", referencedColumnName ="id")})
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "role_permission",joinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "permissionId", referencedColumnName ="id")})
     public List<Permission> getPermissions() {
@@ -87,15 +74,6 @@ public class Role implements Serializable{
 
     public void setPermissions(List<Permission> permissions) {
         this.permissions = permissions;
-    }
-
-    @Transient
-    public List<String> getPermissionStr() {
-        return permissionStr;
-    }
-
-    public void setPermissionStr(List<String> permissionStr) {
-        this.permissionStr = permissionStr;
     }
 
 }

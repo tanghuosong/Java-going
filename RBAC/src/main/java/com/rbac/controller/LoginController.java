@@ -49,7 +49,7 @@ public class LoginController {
                 map.put("msg", "系统异常，请重试");
             }
         } catch (UnknownAccountException uae) {
-            map.put("msg", "未知用户");
+            map.put("msg", "您还未登录，无法操作");
         } catch (IncorrectCredentialsException ice) {
             map.put("msg", "密码错误");
         } catch (LockedAccountException lae) {

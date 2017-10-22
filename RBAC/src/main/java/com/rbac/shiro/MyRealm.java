@@ -1,5 +1,7 @@
 package com.rbac.shiro;
 
+import com.rbac.model.Permission;
+import com.rbac.model.Role;
 import com.rbac.model.User;
 import com.rbac.service.UserService;
 import org.apache.shiro.authc.*;
@@ -9,6 +11,9 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: ths
@@ -59,10 +64,20 @@ public class MyRealm extends AuthorizingRealm {
         User userInfo = userService.getUserInfo(username);
         //当用户存在的时候进入判断
         if (userInfo != null){
+
+            List<String> roleStr = new ArrayList<>();
+            List<String> permissions = new ArrayList<>();
+            // 获取用户的角色
+            for(Role role : userInfo.getRoles()){
+                roleStr.add(role.getRoleName());
+                for(Permission permission : role.getPermissions()){
+                    permissions.add(permission.getName());
+                }
+            }
             //添加当前用户的角色
-            info.addRoles(userInfo.getRoleList());
+            info.addRoles(roleStr);
             //添加当前用户的权限
-            info.addStringPermissions(userInfo.getPermissionList());
+            info.addStringPermissions(permissions);
             return info;
         }
         return null;

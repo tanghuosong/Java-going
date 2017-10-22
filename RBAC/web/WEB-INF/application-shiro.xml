@@ -60,9 +60,6 @@
             </bean>
         </property>
     </bean>
-    <!--自定义的第二个 realm-->
-    <!--<bean id="otherRealm" class="com.rbac.shiro.OtherRealm"/>-->
-
 
     <!--rememberMeManager管理 配置-->
     <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
