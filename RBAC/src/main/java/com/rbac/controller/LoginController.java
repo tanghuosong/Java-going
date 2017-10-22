@@ -25,7 +25,6 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-
     //方便调试 直接用 get
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     @ResponseBody
@@ -45,6 +44,7 @@ public class LoginController {
             //判断用户状态是否已经被认证
             if (currentUser.isAuthenticated()) {
                 map.put("msg", "登录成功");
+
             } else {
                 map.put("msg", "系统异常，请重试");
             }
@@ -67,6 +67,7 @@ public class LoginController {
     @ResponseBody
     public Map<String, Object> getUserList() {
         logger.info("user/getUserList init");
+
         Map<String, Object> map = new HashMap<>();
         map.put("users", userService.getUserList());
         return map;
@@ -77,9 +78,10 @@ public class LoginController {
     public Map<String, Object> getStatusInfo() {
         Map<String, Object> map = new HashMap<>();
         Subject currentUser = SecurityUtils.getSubject();
-
         map.put("isRemembered", currentUser.isRemembered() ? "session过期了，我是被记住的" : currentUser.isRemembered());
         map.put("isAuthenticated", currentUser.isAuthenticated() ? "session 还在，我是被认证的" : currentUser.isAuthenticated());
+
+
 
         //登录过，可以看到自己的名字
         //session 过期的时候，会触发当前判断，前提是登录过的用户设置了token.setRememberMe(true);
