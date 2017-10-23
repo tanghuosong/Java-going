@@ -1,5 +1,7 @@
 package com.rbac.controller;
 
+import com.rbac.model.WebMenu;
+import com.rbac.service.MenuService;
 import com.rbac.service.UserService;
 import com.rbac.utils.Encrypt;
 import org.apache.shiro.SecurityUtils;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -24,6 +27,8 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    MenuService menuService;
 
     //方便调试 直接用 get
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -43,7 +48,9 @@ public class LoginController {
             currentUser.login(token);
             //判断用户状态是否已经被认证
             if (currentUser.isAuthenticated()) {
+                List<WebMenu> webMenus = menuService.getAll();
                 map.put("msg", "登录成功");
+                map.put("msg",webMenus);
 
             } else {
                 map.put("msg", "系统异常，请重试");

@@ -5,14 +5,12 @@ import com.rbac.dao.PermissionDao;
 import com.rbac.dao.RoleDao;
 import com.rbac.model.Permission;
 import com.rbac.model.Role;
-import org.apache.log4j.spi.LoggerFactory;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.mgt.DefaultFilterChainManager;
 import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;
 import org.apache.shiro.web.servlet.AbstractShiroFilter;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.*;
 
