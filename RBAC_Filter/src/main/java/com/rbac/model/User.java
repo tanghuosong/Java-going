@@ -20,13 +20,15 @@ public class User implements Serializable{
 
     public User() {}
 
-    public User(Long id, String userName, List<Role> roles,  String password, String salt) {
+    public User(Long id, String userName, List<Role> roles, String password, String salt, String token) {
         this.id = id;
         this.userName = userName;
         this.roles = roles;
         this.password = password;
         this.salt = salt;
+        this.token = token;
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {

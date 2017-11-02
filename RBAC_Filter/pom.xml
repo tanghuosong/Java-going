@@ -7,7 +7,6 @@
     <groupId>com.rbac</groupId>
     <artifactId>com.rbac</artifactId>
     <version>1.0-SNAPSHOT</version>
-
     <properties>
         <maven-compiler-version>2.5.1</maven-compiler-version>
         <maven-compiler-source>1.8</maven-compiler-source>
@@ -137,12 +136,6 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.35</version>
         </dependency>
-        <!--shiro-->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
@@ -156,9 +149,8 @@
         </dependency>
 
     </dependencies>
-
     <build>
-        <finalName>maven-shiro-learn</finalName>
+        <finalName>rbac-filter-learn</finalName>
         <resources>
             <!--表示把java目录下的有关xml文件,properties文件编译/打包的时候放在resource目录下-->
             <resource>
@@ -186,5 +178,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

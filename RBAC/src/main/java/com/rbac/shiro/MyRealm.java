@@ -4,6 +4,8 @@ import com.rbac.model.Permission;
 import com.rbac.model.Role;
 import com.rbac.model.User;
 import com.rbac.service.UserService;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -36,7 +38,6 @@ public class MyRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
 
         UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
-
         // 从数据库中拿到用户信息
         User user = userService.getUserInfo(token.getUsername());
         // 如果用户不存在，则抛出不存在异常

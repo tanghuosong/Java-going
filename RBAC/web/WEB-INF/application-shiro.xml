@@ -85,11 +85,13 @@
         <!-- 指定sessionId ，防止与tomcat 冲突等问题发生-->
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
     </bean>
+
     <!-- 自定义sessionId 防止同tomcat 等容器冲突 -->
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg name="name" value="wms.session.id"/>
+        <constructor-arg name="name" value="token"/>
         <property name="path" value="/"/>
     </bean>
+
     <!--shiro 请求拦截器，这里的 bean id 一定要对应 web.xml 中的filter-name，否则找不到这个拦截器-->
     <bean id="shiroFilter" class="com.rbac.shiro.MyShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>

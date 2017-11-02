@@ -6,6 +6,8 @@ import com.rbac.service.UserService;
 import com.rbac.utils.Encrypt;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +33,11 @@ public class LoginController {
     private UserService userService;
     @Autowired
     MenuService menuService;
+    @Autowired
+    SessionManager sessionManager;
+    @Autowired
+    SecurityManager securityManager;
+
 
     //方便调试 直接用 get
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -109,8 +118,29 @@ public class LoginController {
     @ResponseBody
     public Map<String, Object> unAuthorized() {
         Map<String, Object> map = new HashMap<>();
+        map.put("code","401");
         map.put("status", "您没有权限访问");
 
+        return map;
+    }
+    @RequestMapping(value = "/unLogin", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> unLogin() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("code","401");
+        map.put("status", "您尚未登录");
+        return map;
+    }
+
+    @RequestMapping(value = "/auth", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> auth(HttpServletRequest request,HttpServletResponse response) {
+        String token =  request.getParameter("token");
+
+        System.out.println(token);
+        Map<String, Object> map = new HashMap<>();
+        map.put("code","401");
+        map.put("status", "您尚未登录");
         return map;
     }
 }
